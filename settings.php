@@ -11,6 +11,3 @@
 //define('C_REST_LOGS_DIR', __DIR__ .'/logs/'); //directory path to save the log
 
 #================================================================================================================#
-define('C_REST_WEB_HOOK_URL','https://smertmashina.bitrix24.ru/rest/1/dxfxa3jsbi8oxo6v/');
-// define('C_REST_CLIENT_ID',     'local.5ddf9a85ddae73.34026986');
-// define('C_REST_CLIENT_SECRET', 'nu6HqRZVqI03AnAHv17l2OMnz442tGDP0clKshCgrxeHSAjG4Q');
