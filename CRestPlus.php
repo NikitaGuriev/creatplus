@@ -3,6 +3,8 @@
 require (__DIR__.'/CRest.php');
 
 class CRestPlus extends CRest {
+	const CLIENT = __DIR__.'/settings.json';
+
 	/**
 	* Функция посчитывает количество необходимых сущностей на портале и создает массив с параметрами получения
 	* всего списка этих сущностей
@@ -124,17 +126,15 @@ class CRestPlus extends CRest {
 
 	/**
 	* установка приложения
-	*
-	* @var event (array) - post событие присылаемое битриксом
-	* @var callback (function)
-	* @return (void)
 	*/
 	public static function init ($event, $callback = null) {
-		if (isset($event['event']) && $event['event'] == 'ONAPPINSTALL' && !file_exists(self::CLIENT))
-			parent::installApp();
-		else if (isset($event['PLACEMENT']) && $event['PLACEMENT'] == 'DEFAULT' && !file_exists(self::CLIENT))
-			require_once __DIR__.'/install.php';
+		if (!file_exists(self::CLIENT)) {
+			if (isset($event['event']) && $event['event'] == 'ONAPPINSTALL')
+				parent::installApp();
+			else if (isset($event['PLACEMENT']) && $event['PLACEMENT'] == 'DEFAULT')
+				require_once __DIR__.'/install.php';
 
-		if ($callback) $callback();
+			if ($callback) $callback();
+		}
 	}
 }
