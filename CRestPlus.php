@@ -37,14 +37,20 @@ class CRestPlus extends CRest {
 	* @var arr params - параметры для списочных методов (filter, select)
 	* @return arr - результат метода callbatch (список сущностей) или error
 	*/
-	public static function callBatchList ($method, $params) {
-		$result = array();
-		$tmp = self::iteration ($method, $params);
-		if (!empty($tmp)) {
-			for ($i = 0, $s = count($tmp); $i < $s; $i++) { $result[] = parent::callBatch ($tmp[$i]); }
-		}
-		return $result ?: false;
-	}
+	public static function callBatchList($method, $params = [])
+  {
+    $tmp[] = self::iteration($method, $params);
+    if (!empty($tmp)) {
+      foreach ($tmp as $packageSt) {
+        foreach ($packageSt as $packageNd) {
+          $result[] = parent::callBatch($packageNd);
+        }
+      }
+    } else {
+      $result = false;
+    }
+    return $result ?: 'error';
+  }
 
 	/**
 	* Функция для получения данных пользователей, принимает простой массив id ('1','2','3','n'),
